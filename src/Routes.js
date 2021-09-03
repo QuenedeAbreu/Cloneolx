@@ -2,6 +2,7 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Signin from "./pages/Signin";
+import Signup from "./pages/Signup";
 import Sobre from "./pages/About";
 import NotFound from "./pages/NotFound"
 
@@ -19,10 +20,13 @@ export default () => {
         <Signin />
       </Route>
 
+      <Route path="/signup" >
+        <Signup />
+      </Route>
+
       <Route path="/sobre" >
         <Sobre />
       </Route>
-
 
       <Route>
         <NotFound />

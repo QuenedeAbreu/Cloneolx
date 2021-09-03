@@ -56,6 +56,18 @@ const OlxApi = {
       password,
     });
     return reponse;
+  },
+  getStates: async () => {
+    const response = await apiFetchGet(
+      '/states');
+    return response.states;
+  },
+  register: async (name, email, password, state) => {
+    const response = await apiFetchPost(
+      '/user/signup',
+      { name, email, password, state }
+    );
+    return response;
   }
 }
 
