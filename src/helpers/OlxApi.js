@@ -62,10 +62,22 @@ const OlxApi = {
       '/states');
     return response.states;
   },
+  getCategories: async () => {
+    const response = await apiFetchGet(
+      '/categories');
+    return response.categories;
+  },
   register: async (name, email, password, state) => {
     const response = await apiFetchPost(
       '/user/signup',
       { name, email, password, state }
+    );
+    return response;
+  },
+  getAds: async (options) => {
+    const response = await apiFetchGet(
+      '/ad/list',
+      options
     );
     return response;
   }
