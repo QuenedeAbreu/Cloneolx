@@ -3,7 +3,7 @@ import { Switch, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
-import Sobre from "./pages/About";
+import AdPage from "./pages/AdPage";
 import NotFound from "./pages/NotFound"
 
 
@@ -24,8 +24,8 @@ export default () => {
         <Signup />
       </Route>
 
-      <Route path="/sobre" >
-        <Sobre />
+      <Route path="/ad/:id" >
+        <AdPage />
       </Route>
 
       <Route>
