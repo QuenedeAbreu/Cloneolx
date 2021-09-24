@@ -39,6 +39,11 @@ export const HeaderArea = styled.div`
       display: flex;
       align-items: center;
       height: 40px;
+      flex-direction: row;
+      div{
+        width: 100%;
+        display: flex;
+      }
     }
     li{
       margin-right: 20px;

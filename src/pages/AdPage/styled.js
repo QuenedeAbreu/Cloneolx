@@ -36,15 +36,39 @@ margin-top: 20px;
   .leftSide {
   flex: 1;
   margin-right: 20px;
+  .box{
+    display: flex;
+  }
     
-    .adImage { }
+    .adImage { 
+      width: 320px;
+      height: 320px;
+      margin-right: 20px;
+      .each-slide img{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-size: cover;
+        height: 320px;
+      }
+    }
 
     .adInfos{
-    padding: 10px;
+    flex: 1;
       .adName{
+        h2{
+          margin-top:20px;
+        }
+        small{
+          color: #999;
+        }
       margin-bottom: 20px;
     }
-      .adDescription{ }
+      .adDescription{ 
+        small{
+          color: #999;
+        }
+      }
   }
 
 }

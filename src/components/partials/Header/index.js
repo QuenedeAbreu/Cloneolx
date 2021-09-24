@@ -24,20 +24,19 @@ function Header() {
         <nav>
           <ul>
             {logged &&
-              <>
-
+              <div>
                 <li> <Link to="/post-an-ad" className="button">Poste um anúncio</Link></li>
                 <li> <Link to="/my-account" >Minha Conta</Link></li>
                 <li> <button onClick={handleLogout}>Sair</button></li>
-              </>
+              </div>
             }
 
             {!logged &&
-              <>
+              <div>
                 <li> <Link to="/signin" className="button">Poste um anúncio</Link></li>
                 <li> <Link to="/signin">Login</Link></li>
                 <li> <Link to="/signup">Cadastrar</Link></li>
-              </>
+              </div >
             }
           </ul>
         </nav>

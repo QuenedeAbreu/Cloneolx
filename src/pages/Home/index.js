@@ -18,6 +18,7 @@ function Page() {
       setStateList(states)
     }
     getStates()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
@@ -26,6 +27,7 @@ function Page() {
       setCategories(categories)
     }
     getCategories()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -37,10 +39,11 @@ function Page() {
       setAdList(Ads.ads)
     }
     getRecentAds()
+
   }, []);
 
   return (
-    <>
+    <div>
       <SeachArea>
         <PageContainer>
           <div className="searchBox">
@@ -86,7 +89,7 @@ function Page() {
         </PageArea>
       </PageContainer>
 
-    </>
+    </div>
   );
 }
 
