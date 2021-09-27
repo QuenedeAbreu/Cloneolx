@@ -73,7 +73,61 @@ margin-top: 20px;
 
 }
   .rightSide {
-
   width: 250px;
+  .price span{
+    color:#00F;
+    display:block;
+    font-size:27px;
+    font-weight:bold;
+  }
+  
+  .contactSellerLink{
+    background-color:#00F;
+    color:#FFF;
+    height:30px;
+    border-radius:5px;
+    box-shadow:0px 0px 4px #999;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-decoration:none;
+    margin-bottom:20px;
+  }
+  .c--Bay small{
+    display:block;
+    color:#999;
+    margin-top:10px;
+  }
+  .c--Bay strong{
+    display:block;
+  
+  }
+  
 }
+
 `;
+
+export const OthersArea = styled.div`
+  h2{
+    font-size:20px;
+  }
+  .list{
+    display:flex;
+    
+    .aditem{
+      width:25%;
+    }
+  }
+`;
+
+export const BreadChumb = styled.div`
+  font-size:13px;
+  margin-top:20px;
+
+  a{
+    display:inline-block;
+    margin: 0 5px;
+    text-decoration:underline;
+    color:#000;
+  }
+`

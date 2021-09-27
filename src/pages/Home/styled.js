@@ -1,5 +1,24 @@
 import styled from "styled-components";
 
+
+export const FakeDiv = styled.div`
+  background-color: #999; 
+  height:${props => props.height || 20}px;
+  animation: fadeIn 5s linear infinite;
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+`;
+
 export const SeachArea = styled.div`
 background-color: #DDD;
 border-bottom: 1px solid #CCC;

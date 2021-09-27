@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Slide } from 'react-slideshow-image';
 import { PageContainer } from "../../components/MainComponents";
-import { PageArea, FakeAd } from "./styled";
+import { PageArea, FakeAd, OthersArea, BreadChumb } from "./styled";
 import useApi from "../../helpers/OlxApi";
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom';
+import AdItem from "../../components/partials/AddItem";
 
 // import { Link } from "react-router-dom";
 
@@ -37,6 +38,17 @@ function Page() {
 
   return (
     <PageContainer>
+      {adInfos.category &&
+        <BreadChumb>
+          Voce esta em :
+          <Link to="/">Home</Link>
+          /
+          <Link to={`/ads?state=${adInfos.stateName}`}>{adInfos.stateName}</Link>
+          /
+          <Link to={`/ads?state=${adInfos.stateName}&cat=${adInfos.category.slug}`}>{adInfos.category.name}</Link>
+          / {adInfos.title}
+        </BreadChumb>
+      }
       <PageArea>
         <div className="leftSide">
           <div className="box">
@@ -79,13 +91,42 @@ function Page() {
         <div className="rightSide">
           <div className="box box--padding">
             {loading && <FakeAd height={20} />}
+            {adInfos.priceNegotiable &&
+              "Preco Negociavel"
+            }
+            {!adInfos.priceNegotiable && adInfos.price &&
+              <div className="price">Preco: <span>R$ {adInfos.price}</span></div>
+            }
           </div>
-          <div className="box box--padding">
-            {loading && <FakeAd height={50} />}
-          </div>
-        </div>
 
+          {loading && <FakeAd height={50} />}
+          {adInfos.userInfo &&
+            <div>
+              <a href={`mailto:${adInfos.userInfo.emal}`} target="_blank" className="contactSellerLink">Fale com o vendendor</a>
+              <div className="box box--padding c--Bay">
+                <strong> {adInfos.userInfo.name}</strong>
+                <small>Email: {adInfos.userInfo.email}</small>
+                <small>Estado: {adInfos.stateName}</small>
+              </div>
+
+            </div>
+          }
+        </div>
       </PageArea>
+
+      <OthersArea>
+        {adInfos.others &&
+          <div>
+            <h2>Outras ofertas deste vendedor</h2>
+            <div className="list">
+              {adInfos.others.map((ad, index) =>
+                <AdItem key={index} data={ad} />
+
+              )}
+            </div>
+          </div>
+        }
+      </OthersArea>
     </PageContainer>
   );
 }
