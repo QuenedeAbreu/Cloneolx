@@ -1,10 +1,11 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch } from "react-router-dom";
 import Home from "./pages/Home";
 import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 import AdPage from "./pages/AdPage";
-import NotFound from "./pages/NotFound"
+import NotFound from "./pages/NotFound";
+import RouterHendler from "./components/RouterHendler";
 
 
 
@@ -12,25 +13,29 @@ import NotFound from "./pages/NotFound"
 export default () => {
   return (
     <Switch>
-      <Route exact path="/" >
+      <RouterHendler exact path="/" >
         <Home />
-      </Route>
+      </RouterHendler>
 
-      <Route exact path="/signin">
+      <RouterHendler exact path="/signin">
         <Signin />
-      </Route>
+      </RouterHendler>
 
-      <Route path="/signup" >
+      <RouterHendler path="/signup" >
         <Signup />
-      </Route>
+      </RouterHendler>
 
-      <Route path="/ad/:id" >
+      <RouterHendler path="/ad/:id" >
         <AdPage />
-      </Route>
+      </RouterHendler>
 
-      <Route>
+      <RouterHendler private path="/post-an-ad" >
+        <AdPage />
+      </RouterHendler>
+
+      <RouterHendler>
         <NotFound />
-      </Route>
+      </RouterHendler>
     </Switch>
   );
 }
