@@ -100,19 +100,17 @@ margin-top: 20px;
   }
   .c--Bay strong{
     display:block;
-  
   }
-  
 }
-
 `;
 
 export const OthersArea = styled.div`
-  h2{
-    font-size:20px;
-  }
-  .list{
+h2{
+  font-size:20px;
+}
+.list{
     display:flex;
+    flex-wrap:wrap;
     
     .aditem{
       width:25%;

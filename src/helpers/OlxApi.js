@@ -3,6 +3,28 @@ import qs from 'qs';
 
 const BASEAPI = 'http://alunos.b7web.com.br:501';
 
+async function apiFetchFile(endpoint, body) {
+  if (!body.token) {
+    let token = Cookies.get('token');
+    if (token) {
+      body.append('token', token);
+    }
+  }
+
+  const res = await fetch(`${BASEAPI + endpoint}`, {
+    method: 'POST',
+    body,
+  })
+  const data = await res.json()
+
+  if (data.notallowed) {
+    window.location.href = '/signin';
+    return;
+  }
+  return data;
+}
+
+
 async function apiFetchPost(endpoint, body) {
   if (!body.token) {
     let token = Cookies.get('token');
@@ -87,6 +109,13 @@ const OlxApi = {
       { id, other }
     );
     return response;
+  },
+  addAd: async (formData) => {
+    const reponse = await apiFetchFile(
+      '/ad/add',
+      formData
+    );
+    return reponse;
   }
 }
 

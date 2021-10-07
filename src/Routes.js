@@ -5,6 +5,7 @@ import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 import AdPage from "./pages/AdPage";
 import NotFound from "./pages/NotFound";
+import AddAd from "./pages/AddAd";
 import RouterHendler from "./components/RouterHendler";
 
 
@@ -30,7 +31,7 @@ export default () => {
       </RouterHendler>
 
       <RouterHendler private path="/post-an-ad" >
-        <AdPage />
+        <AddAd />
       </RouterHendler>
 
       <RouterHendler>
