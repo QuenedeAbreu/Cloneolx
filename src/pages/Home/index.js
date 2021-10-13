@@ -56,6 +56,7 @@ function Page() {
             <form action="/ads" method="GET">
               <input type="text" name="q" placeholder="O que você procura?" />
               <select name="state">
+                <option value=""></option>
                 {loading &&
                   <option key={0} value="">Carregando...</option>
                 }
