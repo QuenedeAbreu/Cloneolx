@@ -102,6 +102,37 @@ margin-top: 20px;
     display:block;
   }
 }
+
+@media (max-width: 600px) {
+  &{
+    flex-direction: column;
+  }
+
+  .leftSide {
+    margin-right: 0;
+    .box{
+      margin:auto;
+      width: 320px;
+      flex-direction: column; 
+    }
+    .adInfos{
+      padding: 10px;
+    }
+  }
+  .rightSide {
+    width: auto;
+    margin-top: 20px;
+    .box{
+      margin:auto;
+      width: 320px;
+      flex-direction: column; 
+    }
+    .contactSellerLink{
+      width: 320px;
+      margin: 20px auto;
+    }
+  }
+}
 `;
 
 export const OthersArea = styled.div`
@@ -116,6 +147,16 @@ h2{
       width:25%;
     }
   }
+  @media (max-width: 600px) {
+    &{
+      margin: 10px;
+
+    }
+    .list .aditem{
+      width:50%;
+    }
+
+  } 
 `;
 
 export const BreadChumb = styled.div`
@@ -127,5 +168,10 @@ export const BreadChumb = styled.div`
     margin: 0 5px;
     text-decoration:underline;
     color:#000;
+  }
+  @media (max-width: 600px) {
+    &{
+      margin:20px;
+    }
   }
 `

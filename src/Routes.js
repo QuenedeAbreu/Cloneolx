@@ -8,6 +8,7 @@ import NotFound from "./pages/NotFound";
 import AddAd from "./pages/AddAd";
 import Ads from "./pages/Ads";
 import RouterHendler from "./components/RouterHendler";
+import MyAccount from "./pages/MyAccount";
 
 
 
@@ -37,6 +38,10 @@ export default () => {
 
       <RouterHendler private path="/post-an-ad" >
         <AddAd />
+      </RouterHendler>
+
+      <RouterHendler private path="/my-account" >
+        <MyAccount />
       </RouterHendler>
 
       <RouterHendler>

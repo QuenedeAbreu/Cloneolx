@@ -4,7 +4,8 @@ import { FooterArea } from "./styled";
 function Footer() {
   return (
     <FooterArea>
-      ...
+      Todos os direitos reservados! <br />
+      OLX Clone Quenede Abreu
     </FooterArea>
   )
 }

@@ -32,7 +32,7 @@ function Page() {
 
   return (
     <PageContainer>
-      <PageTitle>Login</PageTitle>
+      <PageTitle TextAlign={'center'} Margin={10 + 'px ' + 0}>Login</PageTitle>
       <PageArea>
         {error &&
 
@@ -62,7 +62,7 @@ function Page() {
             </div>
           </label>
 
-          <label className="area">
+          <label className="area area--checkbox">
             <div className="area--title">Lembrar Senha</div>
             <div className="area--input">
               <input type="checkbox"

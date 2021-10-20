@@ -50,7 +50,7 @@ function Page() {
 
   return (
     <PageContainer>
-      <PageTitle>Cadastro</PageTitle>
+      <PageTitle TextAlign={'center'} Margin={10 + 'px ' + 0}>Cadastro</PageTitle>
       <PageArea>
         {error &&
 

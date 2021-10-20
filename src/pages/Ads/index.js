@@ -4,11 +4,13 @@ import { PageContainer } from "../../components/MainComponents";
 import { PageArea } from "./styled";
 import { useLocation, useHistory } from "react-router-dom";
 import useApi from "../../helpers/OlxApi";
+import AddItem from "../../components/partials/AddItem";
 
-
+let timer;
 function Page() {
   const api = useApi();
   const history = useHistory();
+
   // pega os valores da URL
   const useQueryString = () => {
     return new URLSearchParams(useLocation().search);
@@ -39,13 +41,59 @@ function Page() {
     history.replace({
       search: `?${queryString.join('&')}`
     })
+
+    if (timer) {
+      clearTimeout(timer);
+    }
+    timer = setTimeout(getAdsList, 1000);
+    setResultOpacity(0.3);
+    setCurrentPage(1)
   }, [q, cat, state]);
 
 
-
+  const [currentPage, setCurrentPage] = useState(1)
   const [stateList, setStateList] = useState([])
   const [categories, setCategories] = useState([])
   const [adList, setAdList] = useState([])
+  const [resultOpacity, setResultOpacity] = useState(1)
+  const [adsTotal, setAdsTotal] = useState(0);
+  const [pageCount, setPageCount] = useState(0);
+  // const [warningMessage, setWarningMessage] = useState("Carregando...")
+  const [loading, setLoading] = useState(true)
+
+
+
+  const getAdsList = async () => {
+    setLoading(true)
+    let offset = 0;
+    offset = (currentPage - 1) * 9
+    const Ads = await api.getAds({
+      sort: 'desc',
+      limit: 9,
+      q,
+      cat,
+      state,
+      offset
+    });
+    setAdList(Ads.ads)
+    setAdsTotal(Ads.total)
+    setResultOpacity(1);
+    setLoading(false)
+  }
+
+  useEffect(() => {
+    if (adsTotal > 0) {
+
+      setPageCount(Math.ceil(adsTotal / adList.length))
+    } else {
+      setPageCount(0)
+    }
+  }, [adsTotal])
+
+  useEffect(() => {
+    setResultOpacity(0.3);
+    getAdsList()
+  }, [currentPage])
 
 
   useEffect(() => {
@@ -68,19 +116,12 @@ function Page() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    const getRecentAds = async () => {
-      const Ads = await api.getAds({
-        sort: 'desc',
-        limit: 8
-      });
-      setAdList(Ads.ads)
+  //Paginação
 
-    }
-    getRecentAds()
-
-  }, []);
-
+  let pagination = [];
+  for (let i = 0; i <= pageCount; i++) {
+    pagination.push(i + 1);
+  }
   return (
     <PageContainer>
       <PageArea>
@@ -119,7 +160,29 @@ function Page() {
           </form>
         </div>
         <div className="rightSide">
-          ...
+          <h2>Resultados</h2>
+          {loading && adList.length === 0 &&
+            <div className="ListWarning">Carregando ...</div>
+          }
+          {!loading && adList.length === 0 &&
+            <div className="ListWarning">Nenhum resultado encontrado</div>
+          }
+
+          <div className="list" style={{ opacity: resultOpacity }}>
+            {adList.map((ad, index) =>
+              <AddItem key={index} data={ad} />
+
+            )}
+          </div>
+          <div className="pagination">
+
+            {pagination.map((pg, index) => (
+
+              <div onClick={() => setCurrentPage(pg)} className={pg === currentPage ? 'pagItem active' : 'pagItem'}>
+                {pg}
+              </div>
+            ))}
+          </div>
         </div>
 
       </PageArea>

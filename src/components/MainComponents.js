@@ -12,8 +12,9 @@ export const PageContainer = styled.div`
 `;
 
 export const PageTitle = styled.h1`
-font-size: 27px;
-
+  font-size: 27px;
+  text-align: ${props => props.TextAlign || "left"};
+  margin: ${props => props.Margin || "0"};
 `;
 
 export const PageBody = styled.div``;

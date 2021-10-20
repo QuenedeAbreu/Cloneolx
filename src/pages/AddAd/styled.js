@@ -59,5 +59,38 @@ export const PageArea = styled.div`
       }
     }
   }
-
+  @media (max-width: 600px) {
+    
+    form{
+      .area{
+        flex-direction: column;
+        .area--title{
+          width: 100%;
+          text-align: left;
+          margin-bottom: 10px;
+        }
+        .area--input{
+          width: 100%;
+        }
+        .area--input button{
+          width: 100%;
+          padding: 10px;
+        }
+      }
+      .area--checkbox{
+        height: 30px;
+        display: flex;
+        flex-direction: row;     
+        align-items: center;
+        justify-content: center;
+        .area--title{
+          flex: 1;
+          text-align: left;          
+        }
+        .area--input{
+          width: 50%;
+        }
+      }
+    }
+  }
 `;
