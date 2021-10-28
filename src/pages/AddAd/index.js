@@ -85,7 +85,7 @@ function Page() {
 
   return (
     <PageContainer>
-      <PageTitle>Postar um anucio</PageTitle>
+      <PageTitle TextAlign={'center'} Margin={10 + 'px ' + 0}>Postar um anucio</PageTitle>
       <PageArea>
         {error &&
 
