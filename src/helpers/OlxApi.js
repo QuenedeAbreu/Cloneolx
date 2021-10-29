@@ -49,6 +49,30 @@ async function apiFetchPost(endpoint, body) {
   }
   return data;
 }
+async function apiFetchPut(endpoint, body) {
+  if (!body.token) {
+    let token = Cookies.get('token');
+    if (token) {
+      body.token = token;
+    }
+  }
+
+  const res = await fetch(BASEAPI + endpoint, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+    body: JSON.stringify(body),
+  })
+  const data = await res.json()
+
+  if (data.notallowed) {
+    window.location.href = '/signin';
+    return;
+  }
+  return data;
+}
 
 // eslint-disable-next-line
 async function apiFetchGet(endpoint, body = []) {
@@ -116,8 +140,23 @@ const OlxApi = {
       formData
     );
     return reponse;
+  },
+  getUser: async () => {
+    const response = await apiFetchGet(
+      '/user/me'
+    );
+    return response;
+  },
+  updateUser: async (name, email, state, password) => {
+    const response = await apiFetchPut(
+      '/user/me',
+      { name, email, state, password }
+    );
+    return response;
   }
 }
+
+
 
 // eslint-disable-next-line
 export default () => OlxApi;
