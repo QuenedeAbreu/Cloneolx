@@ -1,17 +1,47 @@
+
 import React, { useState, useEffect } from "react";
 import { PageContainer, PageTitle, ErrorMessage } from "../../components/MainComponents";
 import { PageArea } from "./styled";
 import AddItem from "../../components/partials/AddItem";
 import useApi from "../../helpers/OlxApi";
+// import { Slide } from 'react-slideshow-image';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slide from "react-slick";
 
 
 
 
 function Page(props) {
+
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 2,
+    responsive: [
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: true
+        }
+      }
+    ]
+  };
+
+
+
+
   const api = useApi();
 
   const [user, setUser] = useState({});
   const [disabled, setDisabled] = useState(false);
+  const [adsList, setAdsList] = useState([]);
 
 
   // Formulario
@@ -27,6 +57,7 @@ function Page(props) {
   useEffect(() => {
     const getUsesr = async () => {
       const response = await api.getUser();
+      setAdsList(response.ads);
       setUser(response);
       setNameUser(response.name)
       setEmailUser(response.email)
@@ -61,10 +92,11 @@ function Page(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user])
 
-  // useEffect(() => {
-  //   console.log(user);
-  //   console.log(state);
-  //   console.log(stateUser);
+  // useEffect(async () => {
+  //   console.log(adsList);
+
+  //   // console.log(state);
+  //   // console.log(stateUser);
   //   // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, [])
 
@@ -187,8 +219,19 @@ function Page(props) {
           </div>
         </div>
 
+        <PageTitle TextAlign={'center'} Margin={"20px 0"}>Meus anúncios</PageTitle>
         <div className="pageBottom">
-          {/* <AddItem key={key} data={ad} /> */}
+          {adsList &&
+            <div className="adsList">
+              <Slide {...settings}>
+                {adsList.map((ads, index) => (
+                  // <div key={index} className="each-slide">
+                  <AddItem key={index} data={ads} />
+                  // </div>
+                ))}
+              </Slide>
+            </div>
+          }
         </div>
 
       </PageArea>

@@ -122,10 +122,27 @@ export const PageArea = styled.div`
   }
 }
 
+
   .pageBottom{
     width: 100%;
-    height: 50px;
-    background-color: #f000ff;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .adsList{
+      width: 100%;
+    .slick-prev, .slick-next {
+      &:before{
+        color: #000 !important;
+      }
+    }
+  
+      .aditem{
+        width:100%;
+      }
+
+   
+    }
   }
 
 
@@ -180,5 +197,32 @@ export const PageArea = styled.div`
       }
     }
     
+
+
+    .pageBottom{
+      margin: 0 auto;
+      width: 80%;
+      height: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .adsList{
+        width: 100%;
+      .slick-prev, .slick-next {
+        &:before{
+          color: #000 !important;
+        }
+      }
+     
+        .aditem{
+          width:100%;
+        }
+
+     
+      }
+
+
+
+
   }
 `;
