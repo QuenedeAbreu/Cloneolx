@@ -173,23 +173,23 @@ export const PageArea = styled.div`
               span{
                 font-weight: bold;
               }
+              button{
+                width: 300px;
+                height: 40px;
+                background-color: #0089FF;
+                border: none;
+                outline: none;
+                padding: 5px 10px;
+                color: #fff;
+                font-size: 20px;
+                font-weight: bold;
+                cursor: pointer;
+                border-radius: 4px;
+                
+                &:hover{
+                  background-color: #006FCE;
+                }
             }
-            button{
-              width: 300px;
-              height: 40px;
-              background-color: #0089FF;
-              border: none;
-              outline: none;
-              padding: 5px 10px;
-              color: #fff;
-              font-size: 20px;
-              font-weight: bold;
-              cursor: pointer;
-              border-radius: 4px;
-              
-              &:hover{
-                background-color: #006FCE;
-              }
             }
           }
         }
@@ -217,12 +217,149 @@ export const PageArea = styled.div`
         .aditem{
           width:100%;
         }
-
-     
       }
+    }
 
+`;
 
+export const ModalAll = styled.div`
+  width: 100% ;
+  height: 100% ;
+  // background-color: red ;
+  // color:yellow ;
+  display: flex;
+  form{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 
+    .modalContent{
+      width: 100%;
+      height: 100%;
+      display: flex;
+      .modalLeft{
+        width: 50%;
+        height: 100%;
+        // background-color: blue;
+      }
+      .modalRight{
+        width: 50%;
+        height: 100%;
+        // background-color: green;
+      } 
+    }
+   
+    .area--checkbox{
+      // height: 30px;
+      display: flex;
+      flex-direction: column !important;     
+      // align-items: center !important;
+      justify-content: center !important;
+      // background-color: #ddd !important;
+      
+      
+      .area--title{
+        // flex: 1;
+        width: 100% !important;
+        height: 100% !important;
+        text-align: left;   
+        // background-color: red !important;       
+      }
+      .area--input{
+        display: flex;
+        width: 15px !important;
+        // height: 100% !important;
+        // background-color: green !important;
+      }
+    }
+    .alignerButton{
+      align-items: flex-end;
+      flex:none !important;
+    }
+    .area{
+   
+      display: flex;
+      // align-items: center;
 
+      padding: 10px;
+       width: 100% ;
+      // max-width: 500px;
+      // flex:1;
+      flex-direction: column;
+      // background-color: blue;
+      border-bottom: 1px solid #ddd !important;
+ 
+      .area--title{
+        width: 100%;
+        text-align: left;
+        padding-right: 20px;
+        font-size: 14px;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+      .area--input{
+        flex: 1;
+        input,select{
+          width: 100%;
+          font-size: 14px;
+          padding: 5px;
+          border: 1px solid #ddd;
+          
+          border-radius: 3px;
+          outline: none;
+          transition:all ease 0.3s;
+        
+          &:focus{
+            border: 1px solid #333;
+            color: #333;
+          }
+         
+        }
+        button{
+          width: 300px;
+          height: 40px;
+          background-color: #0089FF;
+          border: none;
+          outline: none;
+          padding: 5px 10px;
+          color: #fff;
+          font-size: 15px;
+          cursor: pointer;
+          border-radius: 4px;
+
+          &:hover{
+            background-color: #006FCE;
+          }
+        }
+          span{
+            font-size: 12px;
+            color: red !important;
+          }
+          textarea{
+            width: 100%;
+            height: 100px;
+            resize: none;
+          }
+    }
   }
+
+@media (max-width: 600px) {
+  &{
+    flex-direction: column;
+    .modalContent{
+      flex-direction: column;
+      // background-color: yellow;
+      height: auto;
+      
+      .modalLeft{
+        width: 100% !important;
+      }
+      .modalRight{
+        width: 100% !important;
+      }
+    }
+  }
+}
+
 `;

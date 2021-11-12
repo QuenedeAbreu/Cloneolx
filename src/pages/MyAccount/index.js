@@ -1,20 +1,20 @@
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { PageContainer, PageTitle, ErrorMessage } from "../../components/MainComponents";
-import { PageArea } from "./styled";
-import AddItem from "../../components/partials/AddItem";
+import { PageArea, ModalAll } from "./styled";
+import AddItem from "../../components/partials/AddItemModal";
 import useApi from "../../helpers/OlxApi";
-// import { Slide } from 'react-slideshow-image';
+import Modal from '../../components/partials/ModalItem';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slide from "react-slick";
+import MaskedInput from "react-text-mask";
+import { createNumberMask } from 'text-mask-addons';
 
 
 
 
 function Page(props) {
-
-
   const settings = {
     dots: true,
     infinite: true,
@@ -34,10 +34,8 @@ function Page(props) {
     ]
   };
 
-
-
-
   const api = useApi();
+  const fileField = useRef();
 
   const [user, setUser] = useState({});
   const [disabled, setDisabled] = useState(false);
@@ -52,6 +50,32 @@ function Page(props) {
   const [stateUserEn, setStateUserEn] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+
+  //Modal Edit post
+  // Categorias Select Box
+  const [categories, setCategories] = useState([]);
+
+  const [visibleModal, setVisibleModal] = useState(false);
+  const [adStatusModal, setAdStatusModal] = useState(false);
+  const [adTitleModal, setAdTitleModal] = useState("");
+
+  const [categoryModal, setCategoryModal] = useState("");
+  const [priceModal, setPriceModal] = useState("");
+  const [priceNegotiableModal, setPriceNegotiableModal] = useState(false);
+  const [descriptionModal, setDescriptionModal] = useState("");
+
+  //Pegar as categorias 
+  useEffect(() => {
+    const getCategories = async () => {
+      const response = await api.getCategories();
+
+      setCategories(response);
+    }
+    getCategories()
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
 
   // Pega informações do usuário
   useEffect(() => {
@@ -93,11 +117,11 @@ function Page(props) {
   }, [user])
 
   // useEffect(async () => {
-  //   console.log(adsList);
-
+  //   console.log(user);
   //   // console.log(state);
   //   // console.log(stateUser);
   //   // eslint-disable-next-line react-hooks/exhaustive-deps
+
   // }, [])
 
 
@@ -123,15 +147,48 @@ function Page(props) {
     setDisabled(false);
     // console.log(response);
   }
+  const handleSubmitModal = async (e) => {
+    setVisibleModal(false);
+    setDisabled(false);
+  }
+
+  function handleClick(e) {
+    e.preventDefault();
+    setVisibleModal(!visibleModal);
+  }
+
+  const priceMask = createNumberMask({
+    prefix: 'R$ ',
+    includeThousandsSeparator: true,
+    thousandsSeparatorSymbol: '.',
+    allowDecimal: true,
+    decimalSymbol: ','
+  })
+
+  function openModal(props) {
+    categories.map((item) => {
+      if (item.slug === props.category) {
+        setCategoryModal(item._id);
+      }
+      return "";
+    }
+    )
+
+    setAdStatusModal(props.status);
+    setAdTitleModal(props.title);
+    setPriceNegotiableModal(props.priceNegotiable);
+    setPriceModal(props.price);
+    setDescriptionModal(props.description);
+    console.log(props);
+    setVisibleModal(!visibleModal);
+  }
 
   return (
     <PageContainer>
-      <PageTitle TextAlign={'center'} Margin={10 + 'px ' + 0}>Minha Conta</PageTitle>
+      <PageTitle TextAlign={'center'} Margin={10 + 'px ' + 0} onClick={handleClick}>Minha Conta</PageTitle>
       <PageArea>
         {error &&
-
           <ErrorMessage>{error}</ErrorMessage>
-
         }
 
         <div className="pageTop">
@@ -226,15 +283,132 @@ function Page(props) {
               <Slide {...settings}>
                 {adsList.map((ads, index) => (
                   // <div key={index} className="each-slide">
-                  <AddItem key={index} data={ads} />
-                  // </div>
+                  <div key={index} onClick={() => openModal(ads)}>
+                    <AddItem key={index} data={ads} />
+                  </div>
+
                 ))}
               </Slide>
             </div>
           }
         </div>
-
       </PageArea>
+
+
+      {visibleModal &&
+        <Modal title={adTitleModal} visibleModal={visibleModal} setVisibleModal={setVisibleModal}>
+          <ModalAll>
+            <form onSubmit={handleSubmitModal} >
+              <div className="modalContent">
+
+                <div className="modalLeft">
+                  <label className="area">
+                    <div className="area--title">Titulo : </div>
+                    <div className="area--input">
+
+                      <input type="text"
+                        value={adTitleModal || ""}
+                        required
+                        onChange={e => setAdTitleModal(e.target.value)}
+                        disabled={disabled}
+                      />
+                    </div>
+                  </label>
+                  <label className="area area--checkbox">
+                    <div className="area--title">Status (Ativo / Inativo): </div>
+                    <div className="area--input">
+                      <input type="checkbox"
+                        checked={adStatusModal}
+                        onChange={() => setAdStatusModal(!adStatusModal)}
+                        disabled={disabled} />
+                    </div>
+                  </label>
+
+
+
+
+                  <label className="area">
+                    <div className="area--title">Categoria :</div>
+                    <div className="area--input">
+                      <select
+                        disabled={disabled}
+                        onChange={e => setCategoryModal(e.target.value)}
+                        value={categoryModal}
+                        required
+                      >
+                        <option value=""></option>
+                        {categories && categories.map(category =>
+                          <option key={category._id} value={category._id}>{category.name}</option>
+                        )}
+
+                      </select>
+                    </div>
+                  </label>
+                  <label className="area area--checkbox">
+                    <div className="area--title">Preco Negociavel</div>
+                    <div className="area--input">
+                      <input
+                        type="checkbox"
+                        disabled={disabled}
+                        onChange={e => setPriceNegotiableModal(!priceNegotiableModal)}
+                        checked={priceNegotiableModal}
+                      />
+                    </div>
+                  </label>
+                </div>
+
+
+                <div className="modalRight">
+                  <label className="area">
+                    <div className="area--title">Preco :</div>
+                    <div className="area--input">
+                      <MaskedInput
+                        mask={priceMask}
+                        placeholder="R$ "
+                        disabled={disabled || priceNegotiableModal}
+                        value={priceModal}
+                        onChange={e => setPriceModal(e.target.value)}
+                      />
+                    </div>
+                  </label>
+
+
+                  <label className="area">
+                    <div className="area--title">Descricao</div>
+                    <div className="area--input">
+                      <textarea
+                        disabled={disabled}
+                        value={descriptionModal}
+                        onChange={e => setDescriptionModal(e.target.value)}
+                      >
+                      </textarea>
+                    </div>
+                  </label>
+                  <label className="area">
+                    <div className="area--title">Imagens (1 ou mais)</div>
+                    <div className="area--input">
+                      <input
+                        type="file"
+                        disabled={disabled}
+                        ref={fileField}
+                        multiple
+                      />
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <label className="area alignerButton">
+
+                <div className="area--input">
+                  <button disabled={disabled}>Atualizar</button>
+                </div>
+              </label>
+
+            </form>
+          </ModalAll>
+        </Modal>
+      }
     </PageContainer>
   )
 }

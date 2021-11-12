@@ -11,7 +11,7 @@ export default (props) => {
   } else {
     price = `R$ ${props.data.price}`;
   }
-  console.log(props.data.price);
+  // console.log(props.data.price);
 
   return (
     <Item className="aditem">
