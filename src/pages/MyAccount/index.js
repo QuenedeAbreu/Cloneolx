@@ -10,6 +10,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Slide from "react-slick";
 import MaskedInput from "react-text-mask";
 import { createNumberMask } from 'text-mask-addons';
+import { useHistory } from "react-router";
 
 
 
@@ -36,6 +37,7 @@ function Page(props) {
 
   const api = useApi();
   const fileField = useRef();
+  const history = useHistory();
 
   const [user, setUser] = useState({});
   const [disabled, setDisabled] = useState(false);
@@ -63,6 +65,8 @@ function Page(props) {
   const [priceModal, setPriceModal] = useState("");
   const [priceNegotiableModal, setPriceNegotiableModal] = useState(false);
   const [descriptionModal, setDescriptionModal] = useState("");
+  const [imagesModal, setImagesModal] = useState([]);
+  const [getIdAddModal, setGetIdAddModal] = useState("");
 
   //Pegar as categorias 
   useEffect(() => {
@@ -147,7 +151,52 @@ function Page(props) {
     setDisabled(false);
     // console.log(response);
   }
+
+
   const handleSubmitModal = async (e) => {
+    e.preventDefault();
+    setDisabled(true);
+    setError("");
+    let errors = [];
+    if (!adTitleModal.trim()) {
+      errors.push("Sem tittulo");
+    }
+
+    if (!categoryModal.trim()) {
+      errors.push("Sem categoria");
+    }
+
+    if (errors.length === 0) {
+      const formData = new FormData();
+      formData.append("status", adStatusModal);
+      formData.append("title", adTitleModal);
+      formData.append("category", categoryModal);
+      formData.append("price", priceModal);
+      formData.append("priceNegotiable", priceNegotiableModal);
+      formData.append("description", descriptionModal);
+      formData.append("images", imagesModal);
+
+
+      if (fileField.current.files.length > 0) {
+        for (let i = 0; i < fileField.current.files.length; i++) {
+          formData.append("img", fileField.current.files[i]);
+        }
+      }
+
+      const response = await api.updateAd(formData, getIdAddModal);
+      console.log(response);
+
+      if (!response.error) {
+        history.push(`/my-account`);
+      } else {
+        setError(response.error);
+      }
+
+    } else {
+      setError(errors.join("\n"));
+    }
+    setDisabled(false);
+
     setVisibleModal(false);
     setDisabled(false);
   }
@@ -179,7 +228,9 @@ function Page(props) {
     setPriceNegotiableModal(props.priceNegotiable);
     setPriceModal(props.price);
     setDescriptionModal(props.description);
-    console.log(props);
+    setImagesModal(props.images);
+    setGetIdAddModal(props.id);
+
     setVisibleModal(!visibleModal);
   }
 
@@ -398,12 +449,11 @@ function Page(props) {
                 </div>
               </div>
 
-              <label className="area alignerButton">
 
-                <div className="area--input">
-                  <button disabled={disabled}>Atualizar</button>
-                </div>
-              </label>
+              <div className="area--button">
+                <button disabled={disabled}>Atualizar</button>
+              </div>
+
 
             </form>
           </ModalAll>

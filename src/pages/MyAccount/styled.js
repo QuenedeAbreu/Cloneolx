@@ -219,7 +219,6 @@ export const PageArea = styled.div`
         }
       }
     }
-
 `;
 
 export const ModalAll = styled.div`
@@ -228,12 +227,36 @@ export const ModalAll = styled.div`
   // background-color: red ;
   // color:yellow ;
   display: flex;
+
   form{
     width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
+    .area--button{
+      flex: 1;
+     margin-bottom: 10px;
+      // background-color: red;
+      display: flex;
+      justify-content: flex-end;
+      margin-right: 10px;
+      button{
+        width: 300px;
+        height: 40px;
+        background-color: #0089FF;
+        border: none;
+        outline: none;
+        padding: 5px 10px;
+        color: #fff;
+        font-size: 15px;
+        cursor: pointer;
+        border-radius: 4px;
 
+        &:hover{
+          background-color: #006FCE;
+        }
+      }
+    }
     .modalContent{
       width: 100%;
       height: 100%;
@@ -316,22 +339,7 @@ export const ModalAll = styled.div`
           }
          
         }
-        button{
-          width: 300px;
-          height: 40px;
-          background-color: #0089FF;
-          border: none;
-          outline: none;
-          padding: 5px 10px;
-          color: #fff;
-          font-size: 15px;
-          cursor: pointer;
-          border-radius: 4px;
-
-          &:hover{
-            background-color: #006FCE;
-          }
-        }
+       
           span{
             font-size: 12px;
             color: red !important;
@@ -342,6 +350,8 @@ export const ModalAll = styled.div`
             resize: none;
           }
     }
+    
+    
   }
 
 @media (max-width: 600px) {

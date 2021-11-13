@@ -120,6 +120,20 @@ const OlxApi = {
     );
     return response;
   },
+
+  updateAd: async (formData, idAd) => {
+    const response = await apiFetchPost(
+      `/ad/${idAd}`,
+      formData
+    );
+    return response;
+  },
+
+
+
+
+
+
   getAds: async (options) => {
     const response = await apiFetchGet(
       '/ad/list',
