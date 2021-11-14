@@ -356,6 +356,7 @@ export const ModalAll = styled.div`
 
 @media (max-width: 600px) {
   &{
+   
     flex-direction: column;
     .modalContent{
       flex-direction: column;
@@ -367,6 +368,16 @@ export const ModalAll = styled.div`
       }
       .modalRight{
         width: 100% !important;
+            }
+     
+    }
+    .area--button{
+      flex: 1;
+      margin-right: 0px;
+      // background-color: red;
+      justify-content: center;
+      button{
+        margin-bottom: 10px !important; 
       }
     }
   }

@@ -21,6 +21,7 @@ export const ModalItemAll = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    
   
     .modal-item{
         width: 70%;
@@ -32,13 +33,13 @@ export const ModalItemAll = styled.div`
         display: flex;
         flex-direction: column;
         animation: fadeIn 0.5s; 
-        
+        border-radius: 10px;
         .modal-item-header{
             width: 100%;
             height: 50px;
             background-color: #DCDCDC;
             position: relative;
-
+            border-radius: 10px 10px 0 0;
             .modal-item-title{
                 width: 100%;
                 height: 100%;

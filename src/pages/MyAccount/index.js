@@ -6,11 +6,12 @@ import AddItem from "../../components/partials/AddItemModal";
 import useApi from "../../helpers/OlxApi";
 import Modal from '../../components/partials/ModalItem';
 import "slick-carousel/slick/slick.css";
+
 import "slick-carousel/slick/slick-theme.css";
 import Slide from "react-slick";
 import MaskedInput from "react-text-mask";
 import { createNumberMask } from 'text-mask-addons';
-import { useHistory } from "react-router";
+// import { useHistory } from "react-router";
 
 
 
@@ -37,7 +38,7 @@ function Page(props) {
 
   const api = useApi();
   const fileField = useRef();
-  const history = useHistory();
+  // const history = useHistory();
 
   const [user, setUser] = useState({});
   const [disabled, setDisabled] = useState(false);
@@ -187,7 +188,8 @@ function Page(props) {
       console.log(response);
 
       if (!response.error) {
-        history.push(`/my-account`);
+
+        window.location.href = "/my-account";
       } else {
         setError(response.error);
       }
@@ -201,10 +203,10 @@ function Page(props) {
     setDisabled(false);
   }
 
-  function handleClick(e) {
-    e.preventDefault();
-    setVisibleModal(!visibleModal);
-  }
+  // function handleClick(e) {
+  //   e.preventDefault();
+  //   setVisibleModal(!visibleModal);
+  // }
 
   const priceMask = createNumberMask({
     prefix: 'R$ ',
@@ -236,7 +238,7 @@ function Page(props) {
 
   return (
     <PageContainer>
-      <PageTitle TextAlign={'center'} Margin={10 + 'px ' + 0} onClick={handleClick}>Minha Conta</PageTitle>
+      <PageTitle TextAlign={'center'} Margin={10 + 'px ' + 0}>Minha Conta</PageTitle>
       <PageArea>
         {error &&
           <ErrorMessage>{error}</ErrorMessage>

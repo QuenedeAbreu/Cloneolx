@@ -122,7 +122,7 @@ const OlxApi = {
   },
 
   updateAd: async (formData, idAd) => {
-    const response = await apiFetchPost(
+    const response = await apiFetchFile(
       `/ad/${idAd}`,
       formData
     );
